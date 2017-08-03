@@ -2,10 +2,10 @@ rent_bike_homepage:
     path:     /
     defaults: { _controller: RentBikeBundle:Default:index }
 
-rent_bike_save_user:
-    path:     /user/list
-    defaults: { _controller: RentBikeBundle:User:save }
-
 rent_bike_list_user:
     path:     /user/list
     defaults: { _controller: RentBikeBundle:User:list }
+
+rent_bike_save_user:
+    path:     /user/save
+    defaults: { _controller: RentBikeBundle:User:save }

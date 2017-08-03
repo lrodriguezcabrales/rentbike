@@ -221,45 +221,4 @@ class User extends Entity
     {
         return $this->password;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add role
-     *
-     * @param \RentBikeBundle\Entity\Rol $role
-     *
-     * @return User
-     */
-    public function addRole(\RentBikeBundle\Entity\Rol $role)
-    {
-        $this->roles[] = $role;
-
-        return $this;
-    }
-
-    /**
-     * Remove role
-     *
-     * @param \RentBikeBundle\Entity\Rol $role
-     */
-    public function removeRole(\RentBikeBundle\Entity\Rol $role)
-    {
-        $this->roles->removeElement($role);
-    }
-
-    /**
-     * Get roles
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getRoles()
-    {
-        return $this->roles;
-    }
 }

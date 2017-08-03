@@ -1,0 +1,38 @@
+<?php
+
+namespace RentBikeBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Rol
+ *
+ * @ORM\Table(name="rol")
+ * @ORM\Entity(repositoryClass="RentBikeBundle\Repository\UserRepository")
+ */
+class Rol extends Entity
+{
+    /**
+     * @ORM\Column(type="guid")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="UUID")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     */
+    private $name;
+
+    /**
+     * Many Groups have Many Users.
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
+     */
+    private $users;
+
+
+
+
+}
