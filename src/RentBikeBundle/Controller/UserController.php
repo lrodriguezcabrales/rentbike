@@ -17,6 +17,40 @@ class UserController extends Controller
         return $this->render('RentBikeBundle:Default:index.html.twig');
     }
 
+    public function resolveRouteAction(Request $request)
+    {
+        $method = $request->getMethod();
+
+        switch($method)
+        {
+            case 'GET':
+                return $this->listAction();
+                break;
+            case 'POST':
+                $contentType = $request->headers->get('content_type');
+                $explode = explode(";", $contentType);
+                $contentType = $explode[0];
+                $action = $request->headers->get('X-ACCION');
+                if($action){
+                    if($contentType == 'multipart/form-data'){
+                        $id = $request->get('id');
+                        if($action == 'update'){
+                            return $this->updateAction($id);
+                        }
+                    }
+                }else{
+                    return $this->saveAction();
+                }
+                break;
+            case 'PUT':
+                return $this->updateAction();
+                break;
+            case "DELETE":
+                return $this->deleteAction();
+                break;
+        }
+    }
+
     /**
      * Listar Usuarios
      */
