@@ -3,6 +3,7 @@
 namespace RentBikeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -21,8 +22,9 @@ class User extends Entity
 
     /**
      * @var string
-     *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
+     * @Assert\Length(max=100)
+     * @Assert\NotBlank()
      */
     private $email;
 
@@ -30,6 +32,8 @@ class User extends Entity
      * @var string
      *
      * @ORM\Column(name="firstname", type="string", length=255)
+     * @Assert\Length(max=100)
+     * @Assert\NotBlank()
      */
     private $firstname;
 
@@ -37,6 +41,7 @@ class User extends Entity
      * @var string
      *
      * @ORM\Column(name="secondname", type="string", length=255, nullable=true)
+     * @Assert\Length(max=100)
      */
     private $secondname;
 
@@ -58,6 +63,7 @@ class User extends Entity
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
+     
      */
     private $password;
 

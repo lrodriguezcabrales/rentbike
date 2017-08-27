@@ -24,6 +24,10 @@ class UserController extends Controller
         switch($method)
         {
             case 'GET':
+                $id = $request->get('id');
+                if(!is_null($id)){
+                    return $this->getOneAction($id);
+                }
                 return $this->listAction();
                 break;
             case 'POST':
@@ -54,17 +58,32 @@ class UserController extends Controller
     /**
      * Listar Usuarios
      */
-    public function listAction()
+    public function listAction() 
 	{
 		$em = $this->get("doctrine")->getManager();
 
 		$query = $em->createQuery('SELECT u FROM RentBikeBundle:User u');
 
-		$data = $query->getArrayResult();	
+        $data = $query->getArrayResult();   
 
 		return new JsonResponse(array('total' => count($data), 'data' => $data));
 
 	}
+
+    public function getOneAction($id = null) 
+    {
+        $em = $this->get("doctrine")->getManager();
+
+        if(!is_null($id)){
+            $query = $em->createQuery("SELECT u FROM RentBikeBundle:User u
+                WHERE u.id='".$id."'");
+        }
+
+        $data = $query->getArrayResult();   
+
+        return new JsonResponse($data[0]);
+
+    }
 
 
     /**
@@ -82,8 +101,6 @@ class UserController extends Controller
         //Obtenemos los datos que nos envia el cliente
         $data = $request->getContent();
         $data = json_decode($data, true);
-
-        print_r($data);
 
         $userSearch = $em->getRepository('RentBikeBundle:User')->findOneBy(array('email'=>$data['email']));
 
@@ -115,10 +132,53 @@ class UserController extends Controller
             
             $response = array('status'=> 200, 'msj' =>'Usuario creado exitosamente');
             
+            return new JsonResponse($response);
+
         }else{
-            $response = array('status'=> 500, 'msj' =>'Ha ocurrido un error');
+            //$response = array('status'=> 500, 'msj' =>'Ha ocurrido un error');
+            throw $this->createNotFoundException('Error al crear el usuario');
         }
 
-        return new JsonResponse($response);
+        
 	}
+
+    /**
+     * Actualizar un usuario 
+     */
+    public function updateAction($id)
+    {
+        $em = $this->get("doctrine")->getManager();
+
+        $request = $this->container->get('request_stack')->getCurrentRequest();
+        $response = null;
+
+        //Obtenemos los datos que nos envia el cliente
+        $data = $request->getContent();
+        $data = json_decode($data, true);
+
+        $userSearch = $em->getRepository('RentBikeBundle:User')->find($id);
+
+        if($userSearch){
+           
+            if(count($data) > 0){
+            
+
+                $userSearch->setEmail($data['email']);
+                $userSearch->setPassword($data['password']);
+                $userSearch->setFirstname($data['firstname']);
+                $userSearch->setLastname($data['lastname']);
+                $userSearch->setSecondname($data['secondname']);
+                $userSearch->setSecondlastname($data['secondlastname']);
+                    
+                $em->flush($userSearch);
+
+            }
+
+        }
+
+        $response = array('status'=> 200, 'msj' =>'Usuario actualizado');
+        
+        return new JsonResponse($response);
+        
+    }
 }
