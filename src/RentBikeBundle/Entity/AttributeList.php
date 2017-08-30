@@ -7,6 +7,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * AttributeList
+ * @ORM\Table(name="attributelist")
+ * @ORM\Entity(repositoryClass="RentBikeBundle\Repository\UserRepository")
  */
 class AttributeList
 {
@@ -37,14 +39,79 @@ class AttributeList
      */
     private $value;
 
-
     /**
      * Get id
      *
-     * @return integer
+     * @return guid
      */
     public function getId()
     {
         return $this->id;
+    }
+    
+    /**
+     * Set content
+     *
+     * @param string $content
+     * @return self
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string $content
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set attributeName
+     *
+     * @param string $attributeName
+     * @return self
+     */
+    public function setAttributeName($attributeName)
+    {
+        $this->attributeName = $attributeName;
+        return $this;
+    }
+
+    /**
+     * Get attributeName
+     *
+     * @return string $attributeName
+     */
+    public function getAttributeName()
+    {
+        return $this->attributeName;
+    }
+
+    /**
+     * Set value
+     *
+     * @param string $value
+     * @return self
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+        return $this;
+    }
+
+    /**
+     * Get value
+     *
+     * @return string $value
+     */
+    public function getValue()
+    {
+        return $this->value;
     }
 }

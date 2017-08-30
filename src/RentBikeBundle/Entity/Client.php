@@ -7,6 +7,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Client
+ *
+ * @ORM\Table(name="client")
+ * @ORM\Entity(repositoryClass="RentBikeBundle\Repository\UserRepository")
  */
 class Client
 {
@@ -39,7 +42,7 @@ class Client
     /**
      * Get id
      *
-     * @return integer
+     * @return guid
      */
     public function getId()
     {
