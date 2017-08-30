@@ -73,7 +73,7 @@ class Client
     /**
      * Set identificationType
      *
-     * @param \RentBikeBundle\Entity\AttributeList $identificationType
+     * @param string $identificationType
      *
      * @return Client
      */

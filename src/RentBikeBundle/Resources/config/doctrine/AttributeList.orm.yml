@@ -1,0 +1,11 @@
+RentBikeBundle\Entity\AttributeList:
+    type: entity
+    table: null
+    repositoryClass: RentBikeBundle\Repository\AttributeListRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    lifecycleCallbacks: {  }
